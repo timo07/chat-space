@@ -27,9 +27,8 @@ Things you may want to cover:
 
 |Columu|Type|Options|
 |------|----|------|
-|id|integer|null: false|
-|user_id|integer|null: false, foreign_key: true|
-|group_id|integer|null: false, foreign_key: true|
+|user_id|references|null: false, foreign_key: true|
+|group_id|references|null: false, foreign_key: true|
 
 ### Association
 - belongs_to :group
@@ -38,22 +37,21 @@ Things you may want to cover:
 ## userテーブル
 |Columu|Type|Options|
 |------|----|------|
-|id|integer|null: false|
 |email|string|null: false|
 |password|string|null: false|
-|nickname|string|null: false|
+|nickname|string|null: false, index: true|
 ### Association
 - has_many :groups_users
-- has_many :tweet
-- has_many :group through:  :group_users
+- has_many :tweets
+- has_many :groups, through:  :group_users
 
 ## tweetテーブル
 |Columu|Type|Options|
 |------|----|------|
 |image|text||
 |text|text||
-|user-id|integer|null: false, foreign_key: true|
-|group_id|integer|null: false, foreign_key: true|
+|user-id|references|null: false, foreign_key: true|
+|group_id|references|null: false, foreign_key: true|
 ### Association
 - belongs_to :user
 - belongs_to :group
@@ -61,9 +59,8 @@ Things you may want to cover:
 ## groupテーブル
 |Column|Type|Options|
 |------|----|------|
-|id|integer|null: false|
-|group_name|text|null: false|
+|name|text|null: false|
 ### Association
 - has_many :groups_users
-- has_many :tweet
-- has_many :user through:  :group_users
+- has_many :tweets
+- has_many :users, through:  :group_users
