@@ -25,11 +25,45 @@ Things you may want to cover:
 
 ## groups_usersテーブル
 
-|Columu|type|Opions|
+|Columu|Type|Options|
 |------|----|------|
+|id|integer|null: false|
 |user_id|integer|null: false, foreign_key: true|
 |group_id|integer|null: false, foreign_key: true|
 
 ### Association
 - belongs_to :group
 - belongs_to :user
+
+## userテーブル
+|Columu|Type|Options|
+|------|----|------|
+|id|integer|null: false|
+|email|string|null: false|
+|password|string|null: false|
+|nickname|string|null: false|
+### Association
+- has_many :groups_users
+- has_many :tweet
+- has_many :group through:  :group_users
+
+## tweetテーブル
+|Columu|Type|Options|
+|------|----|------|
+|image|text||
+|text|text||
+|user-id|integer|null: false, foreign_key: true|
+|group_id|integer|null: false, foreign_key: true|
+### Association
+- belongs_to :user
+- belongs_to :group
+
+## groupテーブル
+|Column|Type|Options|
+|------|----|------|
+|id|integer|null: false|
+|group_name|text|null: false|
+### Association
+- has_many :groups_users
+- has_many :tweet
+- has_many :user through:  :group_users
