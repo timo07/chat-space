@@ -1,0 +1,35 @@
+.main-chat
+  .header
+    .main-header
+      .main-header__group
+        グループ名
+      %ul.main-header__members
+        Member：
+        %li.member
+          メンバー名
+        %li.member
+          メンバー名
+        %li.member
+          メンバー名
+    .header-edit
+      .header-edit__button
+        Edit
+
+  .messages
+    .message
+      .message-uppre
+        .message-uppre__name
+          gaga
+        .message-uppre__date
+          (now)
+      .message-text
+        dada
+
+  .form
+    %form
+      %input.form__new{:placeholder => "type a message"}
+      .form__mask
+        %label.form__mask__image
+          = icon('far','image',class: 'icon')
+          %input.hidden{type: 'file'}
+      %input.form__submit{type: 'submit', value: 'Send'}
