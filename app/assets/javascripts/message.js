@@ -87,54 +87,23 @@ $(function(){
   };
 
   var buildHTML = function(message) {
-    if (message.content && message.image) {
-      var html = `<div class="message" data-message-id=` + message.id + `>` +
-        `<div class="message-uppre">` +
-          `<div class="message-uppre__user-name">` +
-            message.user_name +
-          `</div>` +
-          `<div class="message-uppre__date">` +
-            message.created_at +
-          `</div>` +
-        `</div>` +
-        `<div class="message-text">` +
-          `<p class="message-text__content">` +
-            message.content +
-          `</p>` +
-          `<img src="` + message.image + `" class="message-text__image" >` +
-        `</div>` +
-      `</div>`
-    } else if (message.content) {
-      var html = `<div class="message" data-message-id=` + message.id + `>` +
-        `<div class="message-uppre">` +
-          `<div class="message-uppre__user-name">` +
-            message.user_name +
-          `</div>` +
-          `<div class="message-uppre__date">` +
-            message.created_at +
-          `</div>` +
-        `</div>` +
-        `<div class="message-text">` +
-          `<p class="message-text__content">` +
-            message.content +
-          `</p>` +
-        `</div>` +
-      `</div>`
-    } else if (message.image) {
-      var html = `<div class="message" data-message-id=` + message.id + `>` +
-        `<div class="message-uppre">` +
-          `<div class="message-uppre__user-name">` +
-            message.user_name +
-          `</div>` +
-          `<div class="message-uppre__date">` +
-            message.created_at +
-          `</div>` +
-        `</div>` +
-        `<div class="message-text">` +
-          `<img src="` + message.image + `" class="message-text__image" >` +
-        `</div>` +
-      `</div>`
-    };
+    var image_html = (message.image) ? `<img src=" ${message.image} " class="message-text__image" >`: "" ;
+      var html = `<div class="message" data-message-id= ${message.id} >
+        <div class="message-uppre">
+          <div class="message-uppre__user-name">
+            ${message.user_name}
+          </div>
+          <div class="message-uppre__date">
+            ${message.created_at}
+          </div>
+        </div>
+        <div class="message-text">
+          <p class="message-text__content">
+            ${message.content}
+          </p>
+            ${image_html}
+        </div>
+      </div>`
     return html;
   };
   if (document.location.href.match(/\/groups\/\d+\/messages/)) {
