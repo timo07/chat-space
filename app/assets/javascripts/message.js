@@ -62,4 +62,51 @@ $(function(){
       alert("メッセージ送信に失敗しました");
     });
   })
+
+  var reloadMessages = function() {
+    last_message_id = $('.message:last').data("message-id");
+    $.ajax({
+      url: "api/messages",
+      type: 'get',
+      dataType: 'json',
+      data: {id: last_message_id}
+    })
+    .done(function(messages) {
+      if (messages.length !== 0) {
+        var insertHTML = '';
+        $.each(messages, function(i, message) {
+          insertHTML += buildHTML(message)
+        });
+        $('.messages').append(insertHTML);
+        $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight});
+      }
+    })
+    .fail(function() {
+      console.log('error');
+    });
+  };
+
+  var buildHTML = function(message) {
+    var image_html = (message.image) ? `<img src=" ${message.image} " class="message-text__image" >`: "" ;
+      var html = `<div class="message" data-message-id= ${message.id} >
+        <div class="message-uppre">
+          <div class="message-uppre__user-name">
+            ${message.user_name}
+          </div>
+          <div class="message-uppre__date">
+            ${message.created_at}
+          </div>
+        </div>
+        <div class="message-text">
+          <p class="message-text__content">
+            ${message.content}
+          </p>
+            ${image_html}
+        </div>
+      </div>`
+    return html;
+  };
+  if (document.location.href.match(/\/groups\/\d+\/messages/)) {
+    setInterval(reloadMessages, 7000);
+  }
 });
